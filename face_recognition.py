@@ -22,9 +22,9 @@ labels[:20, :] = 0.0     # Label 0 => Raj
 labels[20:40, :] = 1.0    
 
 # Create dictionary to map labels to text
-names = {
+faces = {
     0: 'Raj',
-    1: 'Other'
+    1: 'Surajit'
 }        
 
 # Function to calculate Euclidean distance
@@ -81,7 +81,7 @@ while True:
             face_label = knn(face_data.flatten(), data, labels)
             
             # Map the label to its corresponding text
-            text = names[int(face_label)]
+            text = faces[int(face_label)]
             
             # Render the specified text string in the image
             # putText(img, text, origin, fontFace, fontScale, color(BGR)) 
