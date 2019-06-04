@@ -1,6 +1,4 @@
 """
-Created on Mon Jun 3 2019
-
 @author: likarajo
 """
 
@@ -41,14 +39,16 @@ def knn(x, train, targets, k=5):
     counts = np.unique(sorted_labels, return_counts=True)
     return counts[0][np.argmax(counts[1])]
 
-# Camera object to capture images
-camera = cv2.VideoCapture(0)
-
 # Haar Cascade Classifier object for face object detection
 haarCascadeClf = cv2.CascadeClassifier('./haarcascade_frontalface_default.xml')
 
 # Font object
 font = cv2.FONT_HERSHEY_SIMPLEX
+
+# Camera object to capture images
+camera = cv2.VideoCapture(0)
+
+print('Detecting Image...')
 
 while True:
     # Capture image frame
@@ -56,7 +56,6 @@ while True:
     
     # If camera is working fine, proceed
     if ret == True:
-        print('Recording Image...')
         
         # Convert the current frame to grayscale
         grayFaceImg = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
@@ -74,8 +73,6 @@ while True:
             # Transform the component into a data by resizing
             face_data = cv2.resize(face_component, (50, 50))
             
-            print('Detecting Image')
-            
             # Predict the label of the data using knn
             face_label = knn(face_data.flatten(), data, labels)
             
@@ -83,8 +80,8 @@ while True:
             text = names[int(face_label)]
             
             # Render the specified text string in the image
-            # putText(img, text, origin, fontFace, fontScale, color) 
-            cv2.putText(frame, text, (x, y), font, 1 , (255, 255, 0))
+            # putText(img, text, origin, fontFace, fontScale, color(BGR)) 
+            cv2.putText(frame, text, (x, y-10), font, 1 , (255, 255, 0), 2)
             
             # Render a rectangle around the face in the frame for vizualization
             # rectangle(img, vertex, opp_vertex, color, thickness) 
@@ -95,6 +92,7 @@ while True:
         
         # If user presses the 'Esc' key (id: 27) then stop with a delay of 1ms
         if(cv2.waitKey(1) == 27):
+            print('End')
             break
     
     # If the camera is not working, print "error"
@@ -102,4 +100,6 @@ while True:
         print("Camera error")
 
 # Destroy all of the opened HighGUI windows
+camera.release()
 cv2.destroyAllWindows()
+
