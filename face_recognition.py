@@ -5,9 +5,13 @@
 import numpy as np 
 import cv2
 
+# Source Camera location
+#source = "rtsp://admin:admin2016@192.168.1.2//Streaming/Channels/2"
+source = 0 # PC camera
+
 # Load image data files
-face_01 = np.load('./face_01.npy').reshape(20, 50*50*3)
-face_02 = np.load('./face_02.npy').reshape(20, 50*50*3)
+face_01 = np.load('./data/face_01.npy').reshape(20, 50*50*3)
+face_02 = np.load('./data/face_02.npy').reshape(20, 50*50*3)
 
 # Create dataset
 data = np.concatenate([face_01, face_02])
@@ -46,7 +50,7 @@ haarCascadeClf = cv2.CascadeClassifier('./haarcascade_frontalface_default.xml')
 font = cv2.FONT_HERSHEY_SIMPLEX
 
 # Camera object to capture images
-camera = cv2.VideoCapture(0)
+camera = cv2.VideoCapture(source)
 
 print('Detecting Image...')
 
@@ -102,4 +106,6 @@ while True:
 # Destroy all of the opened HighGUI windows
 camera.release()
 cv2.destroyAllWindows()
+
+exit()
 
