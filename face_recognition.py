@@ -56,6 +56,7 @@ while True:
     
     # If camera is working fine, proceed
     if ret == True:
+        print('Recording Image...')
         
         # Convert the current frame to grayscale
         grayFaceImg = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
@@ -73,6 +74,8 @@ while True:
             # Transform the component into a data by resizing
             face_data = cv2.resize(face_component, (50, 50))
             
+            print('Detecting Image')
+            
             # Predict the label of the data using knn
             face_label = knn(face_data.flatten(), data, labels)
             
@@ -88,7 +91,7 @@ while True:
             cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 0, 255), 2)
         
         # Display the image frame in a window
-        cv2.imshow('frame', frame)
+        cv2.imshow('Image Frame', frame)
         
         # If user presses the 'Esc' key (id: 27) then stop with a delay of 1ms
         if(cv2.waitKey(1) == 27):
@@ -96,7 +99,7 @@ while True:
     
     # If the camera is not working, print "error"
     else:
-        print("error")
+        print("Camera error")
 
 # Destroy all of the opened HighGUI windows
 cv2.destroyAllWindows()
