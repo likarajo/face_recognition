@@ -1,5 +1,7 @@
 # Face Recognition
 
+![](sample.png)
+
 ## Libraries used
 
 * ***numpy***: for arrays/matrices
